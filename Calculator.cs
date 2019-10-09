@@ -1,3 +1,5 @@
+using System;
+
 namespace CalculatorChallenge
 {
     public class Calculator
@@ -23,6 +25,14 @@ namespace CalculatorChallenge
                 case 4:
                     answer = num1 / num2;
                     operation = "dividing";
+                    break;
+                case 5:
+                    answer = Math.Pow(num1, 2);
+                    operation = "square";
+                    break;
+                case 6:
+                    answer = Math.Sqrt(num1);
+                    operation = "square root";
                     break;
                 case 0:
                     break;

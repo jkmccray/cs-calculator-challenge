@@ -11,6 +11,8 @@ namespace CalculatorChallenge
             Console.WriteLine("2) Subtract two numbers");
             Console.WriteLine("3) Multiply two numbers");
             Console.WriteLine("4) Divide two numbers");
+            Console.WriteLine("5) Get the square of a number");
+            Console.WriteLine("6) Get the square root of a number");
             Console.WriteLine("0) Exit");
             Console.WriteLine();
             Console.Write("Choose a menu option> ");
@@ -28,24 +30,38 @@ namespace CalculatorChallenge
                     menuSelection = -1;
                 }
 
-                while (menuSelection > 0 && menuSelection < 5)
+                while (menuSelection > 0 && menuSelection < 7)
                 {
                     string[] enteredNumbers;
                     double firstNumber = 0;
                     double secondNumber = 0;
 
-                    try
+                    if (menuSelection <= 4)
                     {
-                        Console.Write("Please enter two numbers with a space in between: ");
-                        enteredNumbers = Console.ReadLine().Split(" ");
-                        firstNumber = double.Parse(enteredNumbers[0]);
-
-                        Console.Write("Please enter the second number ");
-                        secondNumber = double.Parse(enteredNumbers[1]);
+                        try
+                        {
+                            Console.Write("Please enter two numbers with a space in between: ");
+                            enteredNumbers = Console.ReadLine().Split(" ");
+                            firstNumber = double.Parse(enteredNumbers[0]);
+                            secondNumber = double.Parse(enteredNumbers[1]);
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Must enter a number");
+                        }
                     }
-                    catch (FormatException)
+
+                    if (menuSelection == 5 || menuSelection == 6)
                     {
-                        Console.WriteLine("Must enter a number");
+                        try
+                        {
+                            Console.Write("Please enter a number: ");
+                            firstNumber = double.Parse(Console.ReadLine());
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Must enter a number");
+                        }
                     }
 
                     Calculator calculator = new Calculator(menuSelection, firstNumber, secondNumber);
@@ -54,9 +70,13 @@ namespace CalculatorChallenge
                     {
                         Console.WriteLine("Dividing by zero is not allowed");
                     }
-                    else if (firstNumber != 0 && secondNumber !=0)
+                    if (firstNumber != 0 && secondNumber != 0)
                     {
                         Console.WriteLine($"The result of {calculator.operation} {firstNumber} and {secondNumber} is {calculator.answer}");
+                    }
+                    if (menuSelection > 4)
+                    {
+                        Console.WriteLine($"The {calculator.operation} of {firstNumber} is {calculator.answer}");
                     }
 
                     menuSelection = -1;
