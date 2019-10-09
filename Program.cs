@@ -28,47 +28,35 @@ namespace CalculatorChallenge
                     menuSelection = -1;
                 }
 
-                while (menuSelection > 0)
+                while (menuSelection > 0 && menuSelection < 5)
                 {
-                    Console.Write("Please enter the first number ");
-                    double firstNumber = double.Parse(Console.ReadLine());
+                    string[] enteredNumbers;
+                    double firstNumber = 0;
+                    double secondNumber = 0;
 
-                    Console.Write("Please enter the second number ");
-                    double secondNumber = double.Parse(Console.ReadLine());
-
-
-                    double answer = 0;
-                    string operation = "";
-
-                    switch (menuSelection)
+                    try
                     {
-                        case 1:
-                            answer = firstNumber + secondNumber;
-                            operation = "adding";
-                            break;
-                        case 2:
-                            answer = firstNumber - secondNumber;
-                            operation = "subtracting";
-                            break;
-                        case 3:
-                            answer = firstNumber * secondNumber;
-                            operation = "multiplying";
-                            break;
-                        case 4:
-                            answer = firstNumber / secondNumber;
-                            operation = "dividing";
-                            break;
-                        case 0:
-                            break;
+                        Console.Write("Please enter two numbers with a space in between: ");
+                        enteredNumbers = Console.ReadLine().Split(" ");
+                        firstNumber = double.Parse(enteredNumbers[0]);
+
+                        Console.Write("Please enter the second number ");
+                        secondNumber = double.Parse(enteredNumbers[1]);
+                    }
+                    catch (FormatException)
+                    {
+                        Console.WriteLine("Must enter a number");
                     }
 
-                    if (double.IsInfinity(answer))
+                    Calculator calculator = new Calculator(menuSelection, firstNumber, secondNumber);
+
+                    if (double.IsInfinity(calculator.answer))
                     {
                         Console.WriteLine("Dividing by zero is not allowed");
                     }
-                    else
+                    else if (firstNumber != 0 && secondNumber !=0)
                     {
-                        Console.WriteLine($"The result of {operation} {firstNumber} and {secondNumber} is {answer}");
+                        Console.WriteLine($"The result of {calculator.operation} {firstNumber} and {secondNumber} is {calculator.answer}");
                     }
 
                     menuSelection = -1;
