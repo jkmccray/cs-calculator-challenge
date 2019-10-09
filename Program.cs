@@ -13,6 +13,7 @@ namespace CalculatorChallenge
             Console.WriteLine("4) Divide two numbers");
             Console.WriteLine("5) Get the square of a number");
             Console.WriteLine("6) Get the square root of a number");
+            Console.WriteLine("7) Advanced option: Enter an expression");
             Console.WriteLine("0) Exit");
             Console.WriteLine();
             Console.Write("Choose a menu option> ");
@@ -30,11 +31,12 @@ namespace CalculatorChallenge
                     menuSelection = -1;
                 }
 
-                while (menuSelection > 0 && menuSelection < 7)
+                while (menuSelection > 0 && menuSelection < 8)
                 {
                     string[] enteredNumbers;
                     double firstNumber = 0;
                     double secondNumber = 0;
+                    string arithmeticOperator = "";
 
                     if (menuSelection <= 4)
                     {
@@ -64,7 +66,23 @@ namespace CalculatorChallenge
                         }
                     }
 
-                    Calculator calculator = new Calculator(menuSelection, firstNumber, secondNumber);
+                    if (menuSelection == 7)
+                    {
+                        try
+                        {
+                            Console.Write("Please enter an expression with a space in between each character: ");
+                            enteredNumbers = Console.ReadLine().Split(" ");
+                            firstNumber = double.Parse(enteredNumbers[0]);
+                            arithmeticOperator = enteredNumbers[1];
+                            secondNumber = double.Parse(enteredNumbers[2]);
+                        }
+                        catch (FormatException)
+                        {
+                            Console.WriteLine("Must enter a number");
+                        }
+                    }
+
+                    Calculator calculator = new Calculator(menuSelection, firstNumber, secondNumber, arithmeticOperator);
 
                     if (double.IsInfinity(calculator.answer))
                     {
@@ -74,9 +92,13 @@ namespace CalculatorChallenge
                     {
                         Console.WriteLine($"The result of {calculator.operation} {firstNumber} and {secondNumber} is {calculator.answer}");
                     }
-                    if (menuSelection > 4)
+                    if (menuSelection == 5 || menuSelection == 6)
                     {
                         Console.WriteLine($"The {calculator.operation} of {firstNumber} is {calculator.answer}");
+                    }
+                    if (menuSelection == 7)
+                    {
+
                     }
 
                     menuSelection = -1;

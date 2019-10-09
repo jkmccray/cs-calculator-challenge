@@ -6,9 +6,32 @@ namespace CalculatorChallenge
     {
         public string operation { get; }
         public double answer { get; }
-        public Calculator(int menuSelection, double num1, double num2)
+        public Calculator(int menuSelection, double num1, double num2, string arithmeticOperator)
         {
-            switch (menuSelection)
+            int option = 0;
+            if (menuSelection == 7)
+            {
+                switch (arithmeticOperator)
+                {
+                    case "+":
+                        option = 1;
+                        break;
+                    case "-":
+                        option = 2;
+                        break;
+                    case "*":
+                        option = 3;
+                        break;
+                    case "/":
+                        option = 4;
+                        break;
+                }
+            }
+            else
+            {
+                option = menuSelection;
+            }
+            switch (option)
             {
                 case 1:
                     operation = "adding";
